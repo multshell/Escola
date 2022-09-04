@@ -10,7 +10,7 @@ public class Aluno
         double somaNotas = 0;
         foreach (var nota in this.Notas) somaNotas += nota;
         
-        return somaNotas;
+        return somaNotas / this.Notas.Count;
     }
 
     public string Situacao()

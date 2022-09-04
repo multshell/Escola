@@ -43,6 +43,13 @@
 
         Console.Clear();
 
+        if (alunos.Count == 0)
+        {
+            Console.WriteLine("Nenhum aluno cadastrado!");
+            Thread.Sleep(2000);
+            return;
+        }
+
         foreach (var aluno in alunos)
         {
             Console.WriteLine("---------------------------------------------------");
