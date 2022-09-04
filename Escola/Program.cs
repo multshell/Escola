@@ -1,9 +1,10 @@
-﻿class Program
+﻿using System.Configuration;
+
+class Program
 {
   
     static void Main(string[] args)
     {
-        var alunos = new List<Aluno>();
 
         while (true)
         {
@@ -18,10 +19,10 @@
             switch (opcao)
             {
                 case 1:
-                    cadastrarAluno(alunos);
+                    cadastrarAluno();
                     break;
                 case 2:
-                    listarAlunos(alunos);
+                    listarAlunos();
                     break ;
                 case 3:
                     return;
@@ -38,19 +39,19 @@
         
     }
 
-    private static void listarAlunos(List<Aluno> alunos)
+    private static void listarAlunos()
     {
 
         Console.Clear();
 
-        if (alunos.Count == 0)
+        if (Aluno.Todos().Count == 0)
         {
             Console.WriteLine("Nenhum aluno cadastrado!");
             Thread.Sleep(2000);
             return;
         }
 
-        foreach (var aluno in alunos)
+        foreach (var aluno in Aluno.Todos())
         {
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("Nome: " + aluno.Nome);
@@ -64,7 +65,7 @@
         Thread.Sleep(5000);
     }
 
-    private static void cadastrarAluno(List<Aluno> alunos)
+    private static void cadastrarAluno()
     {
         var aluno = new Aluno();
         Console.Clear();
@@ -87,7 +88,7 @@
         }
 
         aluno.Notas = listaNotas;
-        alunos.Add(aluno);
+        Aluno.Adicionar(aluno);
 
         Console.Clear();
         Console.WriteLine("Aluno cadastrado com sucesso!");
