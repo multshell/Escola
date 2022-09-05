@@ -28,7 +28,7 @@ public class Aluno
         return string.Join(",", this.Notas);
     }
 
-    public static List<Aluno> Todos()
+    public static List<Aluno> TodosJson()
     {
         if (File.Exists(caminhoJson()))
         {
@@ -45,9 +45,9 @@ public class Aluno
 
     }
 
-    public static void Adicionar(Aluno aluno)
+    public static void AdicionarJson(Aluno aluno)
     {
-        Aluno.alunos = Aluno.Todos();
+        Aluno.alunos = Aluno.TodosJson();
         Aluno.alunos.Add(aluno);
         File.WriteAllText(caminhoJson(), JsonConvert.SerializeObject(Aluno.alunos));
     }
