@@ -44,14 +44,14 @@ class Program
 
         Console.Clear();
 
-        if (Aluno.TodosJson().Count == 0)
+        if (Aluno.TodosSql().Count == 0)
         {
             Console.WriteLine("Nenhum aluno cadastrado!");
             Thread.Sleep(2000);
             return;
         }
 
-        foreach (var aluno in Aluno.TodosJson())
+        foreach (var aluno in Aluno.TodosSql())
         {
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("Nome: " + aluno.Nome);
@@ -88,7 +88,7 @@ class Program
         }
 
         aluno.Notas = listaNotas;
-        Aluno.AdicionarJson(aluno);
+        Aluno.AdicionarSql(aluno);
 
         Console.Clear();
         Console.WriteLine("Aluno cadastrado com sucesso!");
