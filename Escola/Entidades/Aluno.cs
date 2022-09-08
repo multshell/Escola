@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Configuration;
-using System.Data.SqlClient;
-
-public class Aluno
+﻿public class Aluno
 {
     public int Id { get; set; }
     public string Nome { get; set; }
