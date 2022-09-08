@@ -1,12 +1,15 @@
 ﻿using Escola;
+using Escola.Repositorios;
 using System.Configuration;
+using System.Drawing.Text;
 
 class Program
 {
-  
+    private static AlunoRepositorio repo = new AlunoRepositorio(new AlunoRepositorioSql());
+
     static void Main(string[] args)
     {
-
+       
         while (true)
         {
             Console.Clear();
@@ -45,16 +48,14 @@ class Program
 
         Console.Clear();
 
-        var repo = new AlunoRepositorioSql();
-
-        if (repo.TodosSql().Count == 0)
+        if (repo.Quantidade() == 0)
         {
             Console.WriteLine("Nenhum aluno cadastrado!");
             Thread.Sleep(2000);
             return;
         }
 
-        foreach (var aluno in repo.TodosSql())
+        foreach (var aluno in repo.Todos())
         {
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("Nome: " + aluno.Nome);
@@ -91,7 +92,7 @@ class Program
         }
 
         aluno.Notas = listaNotas;
-        new AlunoRepositorioSql().AdicionarSql(aluno);
+        repo.Salvar(aluno);
 
         Console.Clear();
         Console.WriteLine("Aluno cadastrado com sucesso!");

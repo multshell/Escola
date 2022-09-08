@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Escola.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,20 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Escola
+namespace Escola.Repositorios
 {
-    public class AlunoRepositorioSql
+    public class AlunoRepositorioSql : IRepositorio
     {
         private string? stringConexaoSql()
         {
             return ConfigurationManager.AppSettings["conexao_sql"];
 
         }
-                
-        public List<Aluno> TodosSql()
+
+        public List<Aluno> Todos()
         {
             var alunos = new List<Aluno>();
-            using (var cnn = new SqlConnection(this.stringConexaoSql()))
+            using (var cnn = new SqlConnection(stringConexaoSql()))
             {
                 cnn.Open();
                 using (var cmd = new SqlCommand("select * from alunos", cnn))
@@ -60,10 +61,10 @@ namespace Escola
 
             return alunos;
         }
-                        
-        public void AdicionarSql(Aluno aluno)
+
+        public void Salvar(Aluno aluno)
         {
-            using (var cnn = new SqlConnection(this.stringConexaoSql()))
+            using (var cnn = new SqlConnection(stringConexaoSql()))
             {
                 cnn.Open();
                 var cmd = new SqlCommand("insert into alunos(nome, matricula) values (@nome, @matricula); select @@identity", cnn);
@@ -80,6 +81,19 @@ namespace Escola
                 }
                 cnn.Close();
             }
+        }
+
+        public int Quantidade()
+        {
+            int qtd = 0;
+            using(var cnn = new SqlConnection(stringConexaoSql()))
+            {
+                cnn.Open();
+                var cmd = new SqlCommand("select count(1) from alunos", cnn);
+                qtd = Convert.ToInt32(cmd.ExecuteScalar());
+                cnn.Close();
+            }
+            return qtd;
         }
     }
 }

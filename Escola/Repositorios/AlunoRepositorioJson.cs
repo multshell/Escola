@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Escola.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Escola
+namespace Escola.Repositorios
 {
-    public class AlunoRepositorioJson
+    public class AlunoRepositorioJson : IRepositorio
     {
         private string? caminhoJson()
         {
@@ -17,7 +18,7 @@ namespace Escola
 
         }
 
-        public List<Aluno> TodosJson()
+        public List<Aluno> Todos()
         {
             var alunos = new List<Aluno>();
             if (File.Exists(this.caminhoJson()))
@@ -28,13 +29,17 @@ namespace Escola
 
             return alunos;
         }
-               
-        public void AdicionarJson(Aluno aluno)
+
+        public void Salvar(Aluno aluno)
         {
-            var alunos = this.TodosJson();
+            var alunos = this.Todos();
             alunos.Add(aluno);
             File.WriteAllText(this.caminhoJson(), JsonConvert.SerializeObject(alunos));
         }
-                
+
+        public int Quantidade()
+        {
+            return this.Todos().Count;
+        }
     }
 }
