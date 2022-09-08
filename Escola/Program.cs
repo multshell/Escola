@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using Escola;
+using System.Configuration;
 
 class Program
 {
@@ -44,14 +45,16 @@ class Program
 
         Console.Clear();
 
-        if (Aluno.TodosSql().Count == 0)
+        var repo = new AlunoRepositorioSql();
+
+        if (repo.TodosSql().Count == 0)
         {
             Console.WriteLine("Nenhum aluno cadastrado!");
             Thread.Sleep(2000);
             return;
         }
 
-        foreach (var aluno in Aluno.TodosSql())
+        foreach (var aluno in repo.TodosSql())
         {
             Console.WriteLine("---------------------------------------------------");
             Console.WriteLine("Nome: " + aluno.Nome);
@@ -88,7 +91,7 @@ class Program
         }
 
         aluno.Notas = listaNotas;
-        Aluno.AdicionarSql(aluno);
+        new AlunoRepositorioSql().AdicionarSql(aluno);
 
         Console.Clear();
         Console.WriteLine("Aluno cadastrado com sucesso!");

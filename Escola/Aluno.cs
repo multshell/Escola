@@ -5,8 +5,6 @@ using System.Data.SqlClient;
 
 public class Aluno
 {
-    public static List<Aluno> alunos = new List<Aluno>();
-
     public int Id { get; set; }
     public string Nome { get; set; }
     public string Matricula { get; set; }
